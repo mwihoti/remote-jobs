@@ -32,9 +32,7 @@ export default function JobList() {
     }
   }
 
-  useEffect(() => {
-    fetchJobs()
-  }, [searchTerm, industry, geo])
+  
 
   const handleSearch = (e) => {
     e.preventDefault()

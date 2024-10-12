@@ -44,6 +44,7 @@ export default async function NewListingPage() {
               <div className="border inline-block rounded-md">
                 {Object.keys(organizationsNames).map(orgId => (
                   <Link
+                    key={orgId}
                     href={'/new-listing/' + orgId}
                     className={
                       "py-4 px-4 flex gap-2 items-center "

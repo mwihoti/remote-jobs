@@ -106,13 +106,13 @@ export default function JobForm({ orgId, jobDoc }) {
         <div className="sm:flex">
           <div className="w-1/3">
             <h3>Job icon</h3>
-            <ImageUpload name="jobIcon" icon={faStar} defaultValue={jobDoc?.jobIcon || ''} />
+           
           </div>
           <div className="grow">
             <h3>Contact person</h3>
             <div className="flex gap-2">
               <div className="">
-                <ImageUpload name="contactPhoto" icon={faUser} defaultValue={jobDoc?.contactPhoto || ''} />
+               
               </div>
               <div className="grow flex flex-col gap-1">
                 <TextField.Root
