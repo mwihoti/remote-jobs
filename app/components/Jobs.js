@@ -7,10 +7,8 @@ export default function Jobs() {
 
                 <div className="flex flex-col gap-4">
                     <JobRow/>
-                    <JobRow/>
-                    <JobRow/>
-                    <JobRow/>
-                    <JobRow/>
+                   
+                   
                 </div>
             </div>
         </div>

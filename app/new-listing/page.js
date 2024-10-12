@@ -8,7 +8,6 @@ import { withAuth } from "@workos-inc/authkit-nextjs";
 
 export default async function NewListingPage() {
 
-    
 
   const workos = new WorkOS(process.env.WORKOS_API_KEY);
     const { user } = await withAuth();
@@ -20,6 +19,7 @@ export default async function NewListingPage() {
         );
       }
     
+ 
     
     const organizationMemberships = await workos.userManagement.listOrganizationMemberships({
         userId: user.id,
@@ -36,18 +36,17 @@ export default async function NewListingPage() {
       return (
         <div className="container">
           <div>
-            <pre>
-                {JSON.stringify(organizationMemberships, null)}
-            </pre>
+            
             <h2 className="text-lg mt-6">Your companies</h2>
             <p className="text-gray-500 text-sm mb-2">Select a company to create a job add for</p>
             <div>
+            
               <div className="border inline-block rounded-md">
                 {Object.keys(organizationsNames).map(orgId => (
                   <Link
                     href={'/new-listing/' + orgId}
                     className={
-                      "py-2 px-4 flex gap-2 items-center "
+                      "py-4 px-4 block gap-2 items-center "
                       + (Object.keys(organizationsNames)[0] === orgId ? '' : 'border-t')
                     }>
                     {organizationsNames[orgId]}
@@ -62,25 +61,13 @@ export default async function NewListingPage() {
                 No companies found assigned to your user
               </div>
             )}
-            <h2 className="text-lg mt-6">Create a new company</h2>
-            <p className="text-gray-500 text-sm mb-2"> To create a job listing you first need to register a company</p>
-        <form 
-        action={createCompany} className="flex gap-2">
-
-            <input name="newCompanyName" className="p-2 border border-gray-400 rounded-md"
-            type="text"
-            placeholder="company name"/>
-        <button
-              className="flex gap-2 items-center bg-gray-200 px-4 py-2 rounded-md mt-6"
-              type="submit">
-              Create a new company
-              <FontAwesomeIcon className="h-4" icon={faArrowRight} />
-            </button>
-        </form>
-           
-          </div>
+           <Link href="/new-company" className="bg-gray-200 gap-2 inline-flex px-4 items-center py-2 rounded-md">
+           Create a new company
+           <FontAwesomeIcon  className="size-4"
+           icon={faArrowRight} />
+           </Link>
         </div>
-    )
-}
+        </div>
+      )};
 
 
