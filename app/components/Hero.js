@@ -1,4 +1,4 @@
-export default function Hero() {
+export default async function Hero() {
 
 return (
     <section className="py-12:">
