@@ -1,6 +1,7 @@
 import { withAuth } from "@workos-inc/authkit-nextjs";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
+import { createCompany } from "../actions/workosActions";
 export default async function NewCompanyPage() {
     const { user } = await withAuth();
     async   function handleNewCompanyFormSubmit(data) {

@@ -34,7 +34,7 @@ export default async function NewListingPage() {
     
     
       return (
-        <div className="container">
+        <div className="container px-4">
           <div>
             
             <h2 className="text-lg mt-6">Your companies</h2>
@@ -46,7 +46,7 @@ export default async function NewListingPage() {
                   <Link
                     href={'/new-listing/' + orgId}
                     className={
-                      "py-4 px-4 block gap-2 items-center "
+                      "py-4 px-4 flex gap-2 items-center "
                       + (Object.keys(organizationsNames)[0] === orgId ? '' : 'border-t')
                     }>
                     {organizationsNames[orgId]}
