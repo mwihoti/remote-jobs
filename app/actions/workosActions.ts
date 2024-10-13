@@ -2,6 +2,7 @@
 import {WorkOS} from "@workos-inc/node";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import prisma from '../../lib/prisma';
 const workos = new WorkOS(process.env.WORKOS_API_KEY);
 export async function createCompany(companyName: string, userId:string) {
    

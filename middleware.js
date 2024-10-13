@@ -13,6 +13,7 @@ export const config = { matcher: [
     '/new-listing',
     '/new-listing/:orgId*',
     '/new-company',
+    '/jobs'
 
     ]
  };

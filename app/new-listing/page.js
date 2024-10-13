@@ -5,11 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { WorkOS } from "@workos-inc/node";
 import Link from "next/link";
 import { withAuth } from "@workos-inc/authkit-nextjs";
+import {JobForm} from "../components/JobForm";
 
 export default async function NewListingPage() {
   const workos = new WorkOS(process.env.WORKOS_API_KEY);
-  const { user, session } = await withAuth();
-  
+  const { user } = await withAuth();
+
   if (!user) {
     return (
       <div className="container">
@@ -29,18 +30,14 @@ export default async function NewListingPage() {
     for (const activeMembership of activeOrganizationMemberships) {
       try {
         const organization = await workos.organizations.getOrganization(activeMembership.organizationId);
-        console.log(`Processing organization: ${organization.name} (${organization.id})`);
-        const {  permissions } = await getUserRole(workos, user.id, activeMembership.organizationId);
-        
-        console.log(`User role for organization ${organization.name}: `);
-        
-        if (role) {
+        const userRoleData = await getUserRole(workos, user.id, activeMembership.organizationId);
+
+        if (userRoleData) {
+          const { role = 'unknown', permissions = [] } = userRoleData;
           organizationsInfo[organization.id] = {
             name: organization.name,
-            
-            permissions, // Include permissions in the response
-            session_id: session.id, // Including session ID
-            authenticated: true, // Always true if the user is authenticated
+            role,
+            permissions
           };
         } else {
           console.log(`User ${user.id} does not have a role in organization ${organization.name}`);
@@ -83,6 +80,7 @@ export default async function NewListingPage() {
             ))}
           </div>
         </div>
+        
 
         {Object.keys(organizationsInfo).length === 0 && (
           <div className="border border-blue-200 bg-blue-50 p-4 rounded-md">
@@ -93,10 +91,12 @@ export default async function NewListingPage() {
           Create a new company
           <FontAwesomeIcon className="size-4" icon={faArrowRight} />
         </Link>
+        
       </div>
     </div>
   );
 }
+
 
 async function getUserRole(workos, userId, organizationId) {
   console.log(`Fetching role for user ${userId} in organization ${organizationId}`);
@@ -105,22 +105,26 @@ async function getUserRole(workos, userId, organizationId) {
       userId: userId,
       organizationId: organizationId,
     });
-    
-    console.log('Received membership object:', JSON.stringify(membership, null, 2));
-    
-    // Extract the role and permissions from the structure
+
+    if (!membership) {
+      console.log(`No membership found for user ${userId} in organization ${organizationId}`);
+      return null;
+    }
+
+    // Safely extract the role and permissions using optional chaining
     const role = membership.role?.slug || membership.metadata?.role || null;
-    const permissions = membership.permissions || []; // Extracting permissions
-    
-    console.log(`Extracted role for user ${userId} in organization `);
-    
-    return { permissions }; // Return both role and permissions
+    const permissions = membership.permissions || [];
+
+    console.log(`Extracted role for user ${userId} in organization ${organizationId}: ${role}`);
+    console.log(`Permissions for user ${userId} in organization ${organizationId}: ${permissions}`);
+
+    return { role, permissions };
   } catch (error) {
     if (error.status === 404) {
       console.log(`No membership found for user ${userId} in organization ${organizationId}`);
       return null;
     }
     console.error(`Error fetching user role for user ${userId} in organization ${organizationId}:`, error);
-    return null;
+    return null; // Return null instead of throwing error
   }
 }

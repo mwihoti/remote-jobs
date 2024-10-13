@@ -2,6 +2,7 @@
 
 import Hero from './components/Hero';
 import Jobs from './components/Jobs';
+import JobForm from './components/JobForm';
 import { getSignInUrl, getSignUpUrl, withAuth } from '../lib/auth'; // Adjust the path as necessary
 
 export default async function Home() {
@@ -18,6 +19,8 @@ export default async function Home() {
     <div>
       <Hero />
       <Jobs />
+
+      <JobForm/>
     </div>
   );
 }

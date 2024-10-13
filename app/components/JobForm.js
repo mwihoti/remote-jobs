@@ -1,165 +1,115 @@
 'use client';
 
-import { faEnvelope, faMobile, faPerson, faPhone, faStar, faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, RadioGroup, TextArea, TextField, Theme } from "@radix-ui/themes";
-import { redirect } from "next/navigation";
-import { useState } from "react";
-import "react-country-state-city/dist/react-country-state-city.css";
-import {
-  CitySelect,
-  CountrySelect,
-  StateSelect,
-} from "react-country-state-city";
+import { useState } from 'react';
 
-export default function JobForm({ orgId, jobDoc }) {
-  const [countryId, setCountryId] = useState(jobDoc?.countryId || 0);
-  const [stateId, setStateId] = useState(jobDoc?.stateId || 0);
-  const [cityId, setCityId] = useState(jobDoc?.cityId || 0);
-  const [countryName, setCountryName] = useState(jobDoc?.country || '');
-  const [stateName, setStateName] = useState(jobDoc?.state || '');
-  const [cityName, setCityName] = useState(jobDoc?.city || '');
+export default function JobForm({ userId }) {
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [company, setCompany] = useState('');
+    const [location, setLocation] = useState('');
+    const [salary, setSalary] = useState('');
 
-  async function handleSaveJob(data) {
-    data.set('country', countryName.toString());
-    data.set('state', stateName.toString());
-    data.set('city', cityName.toString());
-    data.set('countryId', countryId.toString());
-    data.set('stateId', stateId.toString());
-    data.set('cityId', cityId.toString());
-    data.set('orgId', orgId);
-    const jobDoc = await saveJobAction(data);
-    redirect(`/jobs/${jobDoc.orgId}`);
-  }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const jobData = {
+                title,
+                description,
+                company,
+                location,
+                salary,
+                userId
+            };
 
-  return (
-    <Theme>
-      <form
-        action={handleSaveJob}
-        className="container mt-6 flex flex-col gap-4"
-      >
-        {jobDoc && (
-          <input type="hidden" name="id" value={jobDoc?._id} />
-        )}
-        <TextField.Root name="title" placeholder="Job title" defaultValue={jobDoc?.title || ''} />
-        <div className="grid sm:grid-cols-3 gap-6 *:grow">
-          <div>
-            Remote?
-            <RadioGroup.Root defaultValue={jobDoc?.remote || 'hybrid'} name="remote">
-              <RadioGroup.Item value="onsite">On-site</RadioGroup.Item>
-              <RadioGroup.Item value="hybrid">Hybrid-remote</RadioGroup.Item>
-              <RadioGroup.Item value="remote">Fully remote</RadioGroup.Item>
-            </RadioGroup.Root>
-          </div>
-          <div>
-            Full time?
-            <RadioGroup.Root defaultValue={jobDoc?.type || 'full'} name="type">
-              <RadioGroup.Item value="project">Project</RadioGroup.Item>
-              <RadioGroup.Item value="part">Part-time</RadioGroup.Item>
-              <RadioGroup.Item value="full">Full-time</RadioGroup.Item>
-            </RadioGroup.Root>
-          </div>
-          <div>
-            Salary
-            <TextField.Root name="salary" defaultValue={jobDoc?.salary || ''}>
-              <TextField.Slot>
-                $
-              </TextField.Slot>
-              <TextField.Slot>
-                k/year
-              </TextField.Slot>
-            </TextField.Root>
-          </div>
-        </div>
-        <div>
-          Location
-          <div className="flex flex-col sm:flex-row gap-4 *:grow">
-            <CountrySelect
-              defaultValue={countryId ? { id: countryId, name: countryName } : 0}
-              onChange={(e) => {
-                setCountryId(e.id);
-                setCountryName(e.name);
-              }}
-              placeHolder="Select Country"
-            />
-            <StateSelect
-              defaultValue={stateId ? { id: stateId, name: stateName } : 0}
-              countryid={countryId}
-              onChange={(e) => {
-                setStateId(e.id);
-                setStateName(e.name);
-              }}
-              placeHolder="Select State"
-            />
-            <CitySelect
-              defaultValue={cityId ? { id: cityId, name: cityName } : 0}
-              countryid={countryId}
-              stateid={stateId}
-              onChange={(e) => {
-                setCityId(e.id);
-                setCityName(e.name);
-              }}
-              placeHolder="Select City"
-            />
-          </div>
-        </div>
-        <div className="sm:flex">
-          <div className="w-1/3">
-            <h3>Job icon</h3>
-           
-          </div>
-          <div className="grow">
-            <h3>Contact person</h3>
-            <div className="flex gap-2">
-              <div className="">
-               
-              </div>
-              <div className="grow flex flex-col gap-1">
-                <TextField.Root
-                  placeholder="John Doe"
-                  name="contactName"
-                  defaultValue={jobDoc?.contactName || ''}
-                >
-                  <TextField.Slot>
-                    <FontAwesomeIcon icon={faUser} />
-                  </TextField.Slot>
-                </TextField.Root>
-                <TextField.Root
-                  placeholder="Phone"
-                  type="tel"
-                  name="contactPhone"
-                  defaultValue={jobDoc?.contactPhone || ''}
-                >
-                  <TextField.Slot>
-                    <FontAwesomeIcon icon={faPhone} />
-                  </TextField.Slot>
-                </TextField.Root>
-                <TextField.Root
-                  placeholder="Email"
-                  type="email"
-                  name="contactEmail"
-                  defaultValue={jobDoc?.contactEmail || ''}
-                >
-                  <TextField.Slot>
-                    <FontAwesomeIcon icon={faEnvelope} />
-                  </TextField.Slot>
-                </TextField.Root>
-              </div>
+            // Make a POST request to your API route to create a job
+            const response = await fetch('/api/jobs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(jobData),
+            });
+
+            if (response.ok) {
+                setTitle('');
+                setDescription('');
+                setCompany('');
+                setLocation('');
+                setSalary('');
+                alert('Job created successfully!');
+            } else {
+                const errorData = await response.json();
+                alert('Failed to create job: ' + errorData.message);
+            }
+        } catch (error) {
+            alert('Failed to create job: ' + error.message);
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+                <label htmlFor="title" className="block text-sm font-medium text-gray-700">Job Title</label>
+                <input
+                    type="text"
+                    id="title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                />
             </div>
-          </div>
-        </div>
-        <TextArea
-          defaultValue={jobDoc?.description || ''}
-          placeholder="Job description"
-          resize="vertical"
-          name="description"
-        />
-        <div className="flex justify-center">
-          <Button size="3">
-            <span className="px-8">Save</span>
-          </Button>
-        </div>
-      </form>
-    </Theme>
-  );
+
+            <div>
+                <label htmlFor="description" className="block text-sm font-medium text-gray-700">Job Description</label>
+                <textarea
+                    id="description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    required
+                    rows={4}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                />
+            </div>
+
+            <div>
+                <label htmlFor="company" className="block text-sm font-medium text-gray-700">Company</label>
+                <input
+                    type="text"
+                    id="company"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                    required
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                />
+            </div>
+
+            <div>
+                <label htmlFor="location" className="block text-sm font-medium text-gray-700">Location</label>
+                <input
+                    type="text"
+                    id="location"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    required
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                />
+            </div>
+
+            <div>
+                <label htmlFor="salary" className="block text-sm font-medium text-gray-700">Salary</label>
+                <input
+                    type="text"
+                    id="salary"
+                    value={salary}
+                    onChange={(e) => setSalary(e.target.value)}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                />
+            </div>
+
+            <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Create Job
+            </button>
+        </form>
+    );
 }
