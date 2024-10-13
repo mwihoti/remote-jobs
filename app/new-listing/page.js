@@ -8,7 +8,7 @@ import { withAuth } from "@workos-inc/authkit-nextjs";
 
 export default async function NewListingPage() {
   const workos = new WorkOS(process.env.WORKOS_API_KEY);
-  const { user } = await withAuth();
+  const { user, session } = await withAuth();
   
   if (!user) {
     return (
@@ -30,14 +30,17 @@ export default async function NewListingPage() {
       try {
         const organization = await workos.organizations.getOrganization(activeMembership.organizationId);
         console.log(`Processing organization: ${organization.name} (${organization.id})`);
-        const userRole = await getUserRole(workos, user.id, activeMembership.organizationId);
+        const {  permissions } = await getUserRole(workos, user.id, activeMembership.organizationId);
         
-        console.log(`User role for organization ${organization.name}: ${userRole}`);
+        console.log(`User role for organization ${organization.name}: `);
         
-        if (userRole) {
+        if (role) {
           organizationsInfo[organization.id] = {
             name: organization.name,
-            role: userRole
+            
+            permissions, // Include permissions in the response
+            session_id: session.id, // Including session ID
+            authenticated: true, // Always true if the user is authenticated
           };
         } else {
           console.log(`User ${user.id} does not have a role in organization ${organization.name}`);
@@ -105,16 +108,19 @@ async function getUserRole(workos, userId, organizationId) {
     
     console.log('Received membership object:', JSON.stringify(membership, null, 2));
     
-    // Extract the role from the structure
+    // Extract the role and permissions from the structure
     const role = membership.role?.slug || membership.metadata?.role || null;
-    console.log(`Extracted role for user ${userId} in organization ${organizationId}: ${role}`);
-    return role;
+    const permissions = membership.permissions || []; // Extracting permissions
+    
+    console.log(`Extracted role for user ${userId} in organization `);
+    
+    return { permissions }; // Return both role and permissions
   } catch (error) {
     if (error.status === 404) {
       console.log(`No membership found for user ${userId} in organization ${organizationId}`);
       return null;
     }
     console.error(`Error fetching user role for user ${userId} in organization ${organizationId}:`, error);
-    return null; // Return null instead of throwing error
+    return null;
   }
 }
