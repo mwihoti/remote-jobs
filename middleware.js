@@ -14,7 +14,10 @@ export const config = { matcher: [
     '/new-listing/:orgId*',
     '/new-company',
     '/jobs',
-    '/api/jobs'
+    '/api/jobs',
+    '/api/jobs/:id*',
+    '/show/:id*'
+    
 
     ]
  };
