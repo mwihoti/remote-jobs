@@ -27,6 +27,8 @@ export default function JobRow({ jobDoc }) {
   if (!jobDoc) {
     return <div className="text-gray-400">Job information is unavailable</div>;
   }
+  console.log(jobDoc);
+
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-sm relative">
@@ -41,41 +43,36 @@ export default function JobRow({ jobDoc }) {
           <div className="grow">
             {/* Job Title */}
             <div className="font-bold text-lg mb-1">
-              <Link className="hover:underline" href={`/show/${jobDoc._id}`}>
-                {jobDoc?.title || 'Unknown Job'}
+              <Link className="hover:underline" href={`/show/${jobDoc.id}`}>
+                {jobDoc.title || 'Unknown Job'}
               </Link>
             </div>
 
-            {/* Job Details (Remote, Location, Type) */}
+            {/* Job Details (Company, Location, Salary) */}
             <div className="text-gray-400 text-sm capitalize">
-              {jobDoc?.remote ? 'Remote' : 'On-site'}
+              {jobDoc.company || 'Unknown Company'}
               {' '}&middot;{' '}
-              {jobDoc?.city || 'Unknown City'}, {jobDoc?.country || 'Unknown Country'}
+              {jobDoc.location || 'Unknown Location'}
               {' '}&middot;{' '}
-              {jobDoc?.type || 'Unknown'}-time
-              {jobDoc?.isAdmin && (
-                <>
-                  {' '}&middot;{' '}
-                  <Link href={`/jobs/edit/${jobDoc._id}`} className="text-blue-500">Edit</Link>
-                  {' '}&middot;{' '}
-                  <button
-                    className="text-red-500"
-                    type="button"
-                    onClick={() => handleDelete(jobDoc._id)}
-                  >
-                    Delete
-                  </button>
-                </>
-              )}
+              Salary: {jobDoc.salary || 'Not specified'}
             </div>
-          </div>
 
-          {/* Time Ago */}
-          {jobDoc?.createdAt && (
-            <div className="content-end text-gray-500 text-sm">
-  
-            </div>
-          )}
+            {/* Admin Actions */}
+            {jobDoc.isAdmin && (
+              <>
+                {' '}&middot;{' '}
+                <Link href={`/jobs/edit/${jobDoc.id}`} className="text-blue-500">Edit</Link>
+                {' '}&middot;{' '}
+                <button
+                  className="text-red-500"
+                  type="button"
+                  onClick={() => handleDelete(jobDoc.id)}
+                >
+                  Delete
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

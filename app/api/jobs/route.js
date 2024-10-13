@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '../../../lib/prisma';
-import { workosWithAuthetUser as getUser } from '../../../lib/auth'
+import { withAuth as getUser } from '../../../lib/auth'
 import { promises as fs } from 'fs';
 import path from 'path';
 
@@ -31,16 +31,19 @@ export async function GET(request) {
 
 export async function POST(request) {
     const user = await getUser(request);
-    if (user.role !== 'ADMIN') {
-        return NextResponse.json({  error: 'Unauthorized'}, {status: 403});
-    }
+    
+    const { title, description, company, location, salary } = await request.json();
 
-    const data = await request.json();
+   
     const jobs = await readJobsFile();
 
     const newJob = {
         id: Date.now().toString(),
-        ...data,
+        title,
+        description,
+        company,      // Include company
+        location,     // Include location
+        salary,       // Include salary
         createdBy: user.id,
         createdAt: new Date().toISOString(),
     };

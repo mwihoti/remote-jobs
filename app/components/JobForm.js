@@ -1,49 +1,54 @@
-'use client';
+'use client'
+import React, { useState } from 'react';
 
-import { useState } from 'react';
-
-export default function JobForm({ userId }) {
+export default function JobForm() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
     const [company, setCompany] = useState('');
     const [location, setLocation] = useState('');
     const [salary, setSalary] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const jobData = {
-                title,
-                description,
-                company,
-                location,
-                salary,
-                userId,
-                createdAt: new Date().toISOString();
-            };
+        setLoading(true);
+        setError(null);
 
-            // Make a POST request to your API route to create a job
+        try {
             const response = await fetch('/api/jobs', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(jobData),
+                body: JSON.stringify({ title,
+                  description,
+                    company,    // Include company
+                    location,   // Include location
+                    salary
+                  
+                }),
             });
 
-            if (response.ok) {
-                setTitle('');
-                setDescription('');
-                setCompany('');
-                setLocation('');
-                setSalary('');
-                alert('Job created successfully!');
-            } else {
-                const errorData = await response.json();
-                alert('Failed to create job: ' + errorData.message);
+            if (!response.ok) {
+                throw new Error('Failed to create job');
             }
+
+            const result = await response.json();
+            console.log('Job created:', result);
+            
+            // Clear form after successful submission
+            setTitle('');
+            setDescription('');
+            setCompany('');
+            setLocation('');
+            setSalary('');
+            alert('Job created successfully!');
         } catch (error) {
-            alert('Failed to create job: ' + error.message);
+            console.error('Error creating job:', error);
+            setError(error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -60,7 +65,6 @@ export default function JobForm({ userId }) {
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
-
             <div>
                 <label htmlFor="description" className="block text-sm font-medium text-gray-700">Job Description</label>
                 <textarea
@@ -71,7 +75,10 @@ export default function JobForm({ userId }) {
                     rows={4}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
+
+                
             </div>
+           
 
             <div>
                 <label htmlFor="company" className="block text-sm font-medium text-gray-700">Company</label>
@@ -108,8 +115,13 @@ export default function JobForm({ userId }) {
                 />
             </div>
 
-            <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Create Job
+            {error && <div className="text-red-500">{error}</div>}
+            <button 
+                type="submit" 
+                disabled={loading}
+                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+            >
+                {loading ? 'Creating...' : 'Create Job'}
             </button>
         </form>
     );
