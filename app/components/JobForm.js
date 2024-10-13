@@ -18,7 +18,8 @@ export default function JobForm({ userId }) {
                 company,
                 location,
                 salary,
-                userId
+                userId,
+                createdAt: new Date().toISOString();
             };
 
             // Make a POST request to your API route to create a job
