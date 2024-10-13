@@ -4,6 +4,7 @@ import Hero from './components/Hero';
 import Jobs from './components/Jobs';
 import JobForm from './components/JobForm';
 import { getSignInUrl, getSignUpUrl, withAuth } from '../lib/auth'; // Adjust the path as necessary
+import JobList from './components/JobList';
 
 export default async function Home() {
   // Retrieves the user from the session or returns `null` if no user is signed in
@@ -18,7 +19,8 @@ export default async function Home() {
   return (
     <div>
       <Hero />
-      <Jobs />
+
+     <JobList/>
 
       <JobForm/>
     </div>
