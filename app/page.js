@@ -20,9 +20,9 @@ export default async function Home() {
     <div>
       <Hero />
 
-     <JobList/>
+   
 
-      <JobForm/>
+      <JobList/>
     </div>
   );
 }

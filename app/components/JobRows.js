@@ -41,7 +41,7 @@ export default function JobRow({ jobDoc }) {
       <div className="grow">
         {/* Job Title */}
         <div className="font-bold text-2xl mb-2 text-indigo-600">
-          <Link className="hover:underline" href={`/show/${jobDoc.id}`}>
+          <Link className="hover:underline" href={`/jobs/${jobDoc.id}`}>
             {jobDoc.title || 'Unknown Job'}
           </Link>
         </div>

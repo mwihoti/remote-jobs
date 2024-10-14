@@ -16,7 +16,8 @@ export const config = { matcher: [
     '/jobs',
     '/api/jobs',
     '/api/jobs/:id*',
-    '/show/:id*'
+    '/show/:id*',
+    '/jobs/:id*',
     
 
     ]

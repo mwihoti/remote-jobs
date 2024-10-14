@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/navigation';
 import { readJobsFile } from './index'; // Reuse your readJobsFile function
 
 export async function GET(request, { params }) {
