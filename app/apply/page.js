@@ -12,7 +12,7 @@ export default function Apply() {
   
     useEffect(() => {
         if (id) {
-          fetch(`/api/jobs?id=${id}`)
+          fetch(`/api/jobs/${id}`)
             .then(response => response.json())
             .then(data => {
               if (data.error) {

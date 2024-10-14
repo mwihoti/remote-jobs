@@ -1,12 +1,36 @@
-'use client'
-import React, { useState } from "react";
+'use client';
+import React, { useEffect, useState } from "react";
 import { Button, Input, Form, message, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { useSearchParams } from 'next/navigation';
 import { saveApplication } from '../../lib/applicationUtils';
 
-const JobApplicationForm = ({ job }) => {
+const JobApplicationForm = () => {
+    const searchParams = useSearchParams();
+    const id = searchParams.get('id');
+    const [job, setJob] = useState(null);
     const [form] = Form.useForm();
     const [fileList, setFileList] = useState([]);
+
+    useEffect(() => {
+        if (id) {
+            fetch(`/api/jobs/${id}`)
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    console.log('Fetched job details for application:', data);
+                    setJob(data);
+                })
+                .catch(err => {
+                    console.error('Error fetching job details:', err);
+                    message.error('Could not fetch job details. Please try again later.');
+                });
+        }
+    }, [id]);
 
     const onFinish = async (values) => {
         const formData = new FormData();
@@ -17,7 +41,7 @@ const JobApplicationForm = ({ job }) => {
         formData.append('cv', fileList[0]?.originFileObj);
 
         try {
-            const response = await fetch('/api/upload', {
+            const response = await fetch('/api/jobs', {
                 method: 'POST',
                 body: formData,
             });
@@ -53,7 +77,7 @@ const JobApplicationForm = ({ job }) => {
     }
 
     return (
-        <div className="flex flex-col md:flex-row p-10 items-center justify-centergap-8">
+        <div className="flex flex-col md:flex-row p-10 items-center justify-center gap-8">
             <div className="w-full md:w-1/2">
                 <h2 className="text-2xl font-bold mb-4">Job Details</h2>
                 <div className="bg-white shadow-md rounded-lg p-6">

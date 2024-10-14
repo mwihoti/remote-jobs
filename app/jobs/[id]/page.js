@@ -31,7 +31,22 @@ export default function JobDetailsPage() {
       <p className="text-lg mb-2"><strong>Salary:</strong> {job.salary || 'Not specified'}</p>
       <p className="mb-4"><strong>Description:</strong> {job.description}</p>
 
-      <Link href='/apply?id=${id}' className="bg-indigo-600 text-white py-2 px-4 rounded-lg">Apply for this job</Link>
+      <h2 className="text-2xl font-bold mt-6 mb-2">Additional Details</h2>
+      <p className="mb-2"><strong>Qualifications:</strong> {job.qualifications}</p>
+      <p className="mb-2"><strong>Benefits:</strong> {job.benefits}</p>
+      <p className="mb-2"><strong>Contact Info:</strong> {job.contactInfo}</p>
+      <p className="mb-2"><strong>Company Background:</strong> {job.companyBackground}</p>
+      <p className="mb-2"><strong>Application Procedure:</strong> {job.applicationProcedure}</p>
+      <p className="mb-2"><strong>Responsibilities:</strong> {job.responsibilities}</p>
+      <p className="mb-2"><strong>Role Summary:</strong> {job.roleSummary}</p>
+      <p className="mb-2"><strong>Business Intro:</strong> {job.businessIntro}</p>
+      <p className="mb-2"><strong>Preferred Qualifications:</strong> {job.preferredQualifications}</p>
+      <p className="mb-2"><strong>Application Directions:</strong> {job.applicationDirections}</p>
+      <p className="mb-2"><strong>Internal Advertising:</strong> {job.internalAdvertising}</p>
+      <p className="mb-2"><strong>Social Media:</strong> {job.socialMedia}</p>
+
+
+      <Link href={`/apply?id=${job.id}`}  className="bg-indigo-600 text-white py-2 px-4 rounded-lg">Apply for this job</Link>
     </div>
   );
 }

@@ -13,7 +13,7 @@ export async function GET(request) {
       return NextResponse.json({ error: 'No id provided' }, { status: 400 });
     }
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/jobs?id=${id}`);
+    const response = await fetch(`/api/jobs?id=${id}`);
     if (!response.ok) {
       return NextResponse.json({ error: 'Job not found' }, { status: 404 });
     }
