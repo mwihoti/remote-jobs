@@ -1,6 +1,7 @@
 'use client'
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export default function JobDetailsPage() {
   const params = useParams();
@@ -11,7 +12,9 @@ export default function JobDetailsPage() {
     if (id) {
       fetch(`/api/jobs/${id}`)
         .then(res => res.json())
-        .then(data => setJob(data))
+        .then(data => {
+            console.log('Fetched job details:', data);
+            setJob(data)})
         .catch(err => console.error('Error fetching job details:', err));
     }
   }, [id]);
@@ -28,7 +31,7 @@ export default function JobDetailsPage() {
       <p className="text-lg mb-2"><strong>Salary:</strong> {job.salary || 'Not specified'}</p>
       <p className="mb-4"><strong>Description:</strong> {job.description}</p>
 
-      <button className="bg-indigo-600 text-white py-2 px-4 rounded-lg">Apply for this job</button>
+      <Link href='/apply?id=${id}' className="bg-indigo-600 text-white py-2 px-4 rounded-lg">Apply for this job</Link>
     </div>
   );
 }
