@@ -30,7 +30,7 @@ export default function JobRow({ jobDoc }) {
   console.log(jobDoc);
 
 
-  return (<div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 relative mb-6 border border-gray-200">
+  return (<div className="bg-white p-16 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 mx-auto mb-6 border border-gray-200">
     {/* Favorite Icon */}
     <div className="absolute top-4 right-4 cursor-pointer">
       <FontAwesomeIcon className="text-gray-300 hover:text-red-400 transition duration-200" icon={faHeart} />

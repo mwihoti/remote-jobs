@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Button, Input, Form, message, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { saveApplication } from '../../lib/applicationUtils';
 
 const JobApplicationForm = ({ job }) => {
     const [form] = Form.useForm();
@@ -16,11 +17,13 @@ const JobApplicationForm = ({ job }) => {
         formData.append('cv', fileList[0]?.originFileObj);
 
         try {
-            const response = await fetch('/api/apply', {
+            const response = await fetch('/api/upload', {
                 method: 'POST',
                 body: formData,
             });
             if (response.ok) {
+                const applicationData = await response.json();
+                await saveApplication(applicationData);
                 message.success('Application submitted successfully!');
                 form.resetFields();
                 setFileList([]);
@@ -50,7 +53,7 @@ const JobApplicationForm = ({ job }) => {
     }
 
     return (
-        <div className="flex flex-col md:flex-row gap-8">
+        <div className="flex flex-col md:flex-row p-10 items-center justify-centergap-8">
             <div className="w-full md:w-1/2">
                 <h2 className="text-2xl font-bold mb-4">Job Details</h2>
                 <div className="bg-white shadow-md rounded-lg p-6">

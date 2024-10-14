@@ -40,9 +40,9 @@ export default function JobList() {
 
 
   return (
-    <div>
+    <div className='mx-auto flex items-center'>
       {jobs.map(job => (
-        <JobRow key={job.id} jobDoc={job} />
+        <JobRow key={job.id} jobDoc={job} className='mx-auto flex items-center'/>
       ))}
     </div>
   );
