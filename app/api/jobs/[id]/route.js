@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/navigation';
-import { readJobsFile } from './index'; // Reuse your readJobsFile function
+import { readJobsFile } from '../route'
 
 export async function GET(request, { params }) {
   const jobs = await readJobsFile();

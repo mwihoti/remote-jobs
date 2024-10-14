@@ -1,10 +1,10 @@
 'use client'
-import { useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function JobDetailsPage() {
-  const router = useRouter();
-  const { id } = router.query;
+  const params = useParams();
+  const id = params.id;
   const [job, setJob] = useState(null);
 
   useEffect(() => {
