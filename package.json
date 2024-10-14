@@ -18,6 +18,7 @@
     "@radix-ui/themes": "^3.1.4",
     "@workos-inc/authkit-nextjs": "^0.12.2",
     "@workos-inc/node": "^7.27.5",
+    "antd": "^5.21.3",
     "next": "14.2.15",
     "react": "^18",
     "react-country-state-city": "^1.1.3",

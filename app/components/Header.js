@@ -19,6 +19,7 @@ export default async function Header  ()  {
           <form action={async () => {
             'use server';
             await signOut();
+            <p>Welcome back{user.firstName && `, ${user.firstName}`}</p>
           }}>
           <button className='bg-blue bg-gray-50' type='submit'>LogOut</button>
 

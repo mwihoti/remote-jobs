@@ -1,5 +1,5 @@
 // app/page.js
-
+import JobApplicationForm from './components/JobApplicationForm';
 import Hero from './components/Hero';
 import Jobs from './components/Jobs';
 import JobForm from './components/JobForm';
@@ -23,6 +23,7 @@ export default async function Home() {
    
 
       <JobList/>
+      <JobApplicationForm />
     </div>
   );
 }
