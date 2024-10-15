@@ -47,7 +47,7 @@ export default async function Header() {
               </>
             )}
             <Link href="/jobs" className="bg-gray-200 ">Jobs</Link>
-            <Link href="/new-listing" className="bg-blue-600">Post jobs</Link>
+            <Link href="/form" className="bg-blue-600">Post jobs</Link>
           </nav>
         </div>
       </header>

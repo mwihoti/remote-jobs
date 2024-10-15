@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '../../../lib/prisma';
-import { withAuth as getUser } from '../../../lib/auth'
+import { withAuth } from '@workos-inc/authkit-nextjs'
 import { readJobsFile, writeJobsFile} from '../../../lib/jobsUtils'
 
 
@@ -11,7 +11,7 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
-    const user = await getUser(request);
+    const user = await withAuth(request);
     
     const { title, description, company, location, salary } = await request.json();
 
