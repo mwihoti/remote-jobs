@@ -39,8 +39,6 @@ To get started with the project locally, follow these steps:
 * Install dependencies using yarn install.
 * Set up environment variables for configuration (e.g., WORKOS_CLIENT_ID, WORKOS_CLIENT_SECRET).
 
-
-```
 * Run migrations: npx prisma migrate dev --name init
 
 * Run the development server with yarn dev.
