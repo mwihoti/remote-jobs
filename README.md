@@ -38,15 +38,7 @@ To get started with the project locally, follow these steps:
 * Clone the repository from GitHub.
 * Install dependencies using yarn install.
 * Set up environment variables for configuration (e.g., WORKOS_CLIENT_ID, WORKOS_CLIENT_SECRET).
-```
-# WorkOS API and Authentication Keys
-WORKOS_API_KEY='sk_test_a2V5XzAxSjlZSEFTUlNOQlo2M0FFRE0zWThTVzE0LFA3WVRNWlhlZEFCQURvNzJtRlY0WTdYOWs'
-WORKOS_CLIENT_ID='client_01J9YHAT5F4QM3ZCH9F7RSJ3MA'
-WORKOS_COOKIE_PASSWORD="hkjhjhjgfhgj6tyyufykrfhokukjuykltyrdbvcbvmjoittyutyurtuyfvrftyedrqweserzedkjjiuopikjlj"
-WORKOS_REDIRECT_URI='http://localhost:3000/api/auth/callback'
 
-# PostgreSQL Database URL
-DATABASE_URL="postgresql://remote:pass1234@localhost:5432/remote"
 
 ```
 * Run migrations: npx prisma migrate dev --name init
