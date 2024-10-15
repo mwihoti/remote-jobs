@@ -12,7 +12,9 @@ export async function GET(request) {
 
 export async function POST(request) {
     const user = await withAuth(request);
-    
+    if (!user) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
     const { title, description, company, location, salary } = await request.json();
 
    

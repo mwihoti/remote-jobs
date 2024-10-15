@@ -1,6 +1,6 @@
 import { getSignInUrl, withAuth, signOut } from '@workos-inc/authkit-nextjs';
 import Link from "next/link";
-import { prisma } from '../../lib/prisma';
+import prisma from '../../lib/prisma';
 
 export default async function Header() {
   let workosUser = null;
