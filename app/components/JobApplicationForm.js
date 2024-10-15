@@ -41,7 +41,7 @@ const JobApplicationForm = () => {
         formData.append('cv', fileList[0]?.originFileObj);
 
         try {
-            const response = await fetch('/api/jobs', {
+            const response = await fetch('/api/applications', {
                 method: 'POST',
                 body: formData,
             });
@@ -77,7 +77,7 @@ const JobApplicationForm = () => {
     }
 
     return (
-        <div className="flex flex-col md:flex-row p-10 items-center justify-center gap-8">
+        <div className="flex  md:flex-row p-10 items-center justify-center gap-8">
             <div className="w-full md:w-1/2">
                 <h2 className="text-2xl font-bold mb-4">Job Details</h2>
                 <div className="bg-white shadow-md rounded-lg p-6">
@@ -86,6 +86,10 @@ const JobApplicationForm = () => {
                     <p className="mb-2"><strong>Location:</strong> {job.location || 'Not specified'}</p>
                     <p className="mb-2"><strong>Salary:</strong> {job.salary || 'Not specified'}</p>
                     <p className="mb-4"><strong>Description:</strong> {job.description}</p>
+                    <p className="mb-2"><strong>Responsibilities:</strong> {job.responsibilities}</p>
+      <p className="mb-2"><strong>Role Summary:</strong> {job.roleSummary}</p>
+      <p className="mb-2"><strong>Business Intro:</strong> {job.businessIntro}</p>
+      <p className="mb-2"><strong>Preferred Qualifications:</strong> {job.preferredQualifications}</p>
                 </div>
             </div>
             <div className="w-full md:w-1/2">

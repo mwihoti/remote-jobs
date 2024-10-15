@@ -22,7 +22,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   jobs      Job[]    // For admin users who create jobs
-  applications Application[]
+  
 }
 
 model Job {
