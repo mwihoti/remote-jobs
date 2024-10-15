@@ -24,7 +24,14 @@ Prisma ORM: Integrates Prisma for database management, ensuring efficient data q
 * API Integration: Implements RESTful APIs for job management and user interactions, enhancing scalability and flexibility.
 Additional Features
 * Error Handling: Implements robust error handling and validation to improve user experience and reliability.
-
+<div >
+<img src="./public/job1.png" alt="job demo" >
+<img src="./public/job2.png" alt="job demo" >
+<img src="./public/job3.png" alt="job demo" >
+<img src="./public/job4.png" alt="job demo" >
+<img src="./public/job5.png" alt="job demo" >
+<img src="./public/job6.png" alt="job demo" >
+</div>
 
 First, run the development server:
 
