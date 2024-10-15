@@ -32,6 +32,27 @@ Additional Features
 <img src="./public/job5.png" alt="job demo" >
 <img src="./public/job6.png" alt="job demo" >
 </div>
+## Getting Started
+To get started with the project locally, follow these steps:
+
+* Clone the repository from GitHub.
+* Install dependencies using yarn install.
+* Set up environment variables for configuration (e.g., WORKOS_CLIENT_ID, WORKOS_CLIENT_SECRET).
+```
+# WorkOS API and Authentication Keys
+WORKOS_API_KEY='sk_test_a2V5XzAxSjlZSEFTUlNOQlo2M0FFRE0zWThTVzE0LFA3WVRNWlhlZEFCQURvNzJtRlY0WTdYOWs'
+WORKOS_CLIENT_ID='client_01J9YHAT5F4QM3ZCH9F7RSJ3MA'
+WORKOS_COOKIE_PASSWORD="hkjhjhjgfhgj6tyyufykrfhokukjuykltyrdbvcbvmjoittyutyurtuyfvrftyedrqweserzedkjjiuopikjlj"
+WORKOS_REDIRECT_URI='http://localhost:3000/api/auth/callback'
+
+# PostgreSQL Database URL
+DATABASE_URL="postgresql://remote:pass1234@localhost:5432/remote"
+
+```
+* Run migrations: npx prisma migrate dev --name init
+
+* Run the development server with yarn dev.
+* Open the project in your browser at http://localhost:3000.
 
 First, run the development server:
 
@@ -60,7 +81,7 @@ To learn more about Next.js, take a look at the following resources:
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
 ## Deploy on Vercel
-
+Production Build Errors: Currently encountering errors during the production build process.
 Link coming soon []
 [
 Am fixing this error that I am getting after running yarn build
@@ -70,4 +91,8 @@ Am fixing this error that I am getting after running yarn build
 error Command failed with exit code 1.
 info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
 
+]
+
+[
+        remote-jobs-tnp3-3x8mbkyuf-mwihotis-projects.vercel.app
 ]
