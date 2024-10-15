@@ -1,20 +1,30 @@
+
+
+'use client';
+
+import { useRouter } from 'next/navigation';
 import JobApplicationForm from '../../components/JobApplicationForm';
+import { useEffect, useState } from 'react';
+export const dynamic = 'force-dynamic'
 
-async function getJob(id) {
-  const res = await fetch(`http://localhost:3000/api/jobs/${id}`, { cache: 'no-store' });
-  if (!res.ok) {
-    throw new Error('Failed to fetch job');
-  }
-  return res.json();
-}
+export default function Apply() {
+    const router = useRouter();
+    const [id, setId] = useState(null);
+    const [job, setJob] = useState(null);
+    const [error, setError] = useState(null);
 
-export default async function Apply({ params }) {
-  const { id } = params;
-  
-  try {
-    const job = await getJob(id);
+    useEffect(() => {
+        // Extract the id from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const jobId = urlParams.get('id');
+        setId(jobId);
+    }, []);
+
+   
+
+    if (!id) return <div>No job ID provided</div>;
+    if (error) return <div>{error}</div>;
+    if (!job) return <div>Loading job details...</div>;
+
     return <JobApplicationForm job={job} />;
-  } catch (error) {
-    return <div>Error: {error.message}</div>;
-  }
 }

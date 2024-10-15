@@ -21,7 +21,8 @@ export const config = { matcher: [
     '/apply',
     '/form',
     '/api/signout',
-    '/not-found'
+    '/not-found',
+    '/_not-found'
     
 
     ]

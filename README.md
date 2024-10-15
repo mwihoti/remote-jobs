@@ -1,12 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Job corner web-application
 
-## Getting Started
+This project aims to provide a platform for listing remote job opportunities and enabling job seekers to apply seamlessly. Below are the key features and functionalities of the project:
+
+
+## Job corner -features
+* Authentication and User Management
+```
+WorkOS Integration: Utilizes WorkOS for secure user authentication and session management.
+```
+
+* Job Listings
+``` 
+Provides job seekers with a  list of remote job opportunities.
+```
+* Job Details: Detailed job descriptions with responsibilities, qualifications, benefits, and application procedures.
+* Application Process: Enables users to apply for jobs directly through the platform, w
+* Frontend and UI
+Responsive Design: Ensures a seamless experience across devices with responsive design principles.
+* Tailwind CSS: Utilizes Tailwind CSS for styling to maintain a consistent and modern user interface.
+* Dynamic Routing: Uses Next.js for dynamic routing and server-side rendering, optimizing performance and SEO.
+Backend and Database
+Prisma ORM: Integrates Prisma for database management, ensuring efficient data querying and manipulation.
+* API Integration: Implements RESTful APIs for job management and user interactions, enhancing scalability and flexibility.
+Additional Features
+* Error Handling: Implements robust error handling and validation to improve user experience and reliability.
+
 
 First, run the development server:
 
-```bash
-npm run dev
-# or
+```
+
 yarn dev
 # or
 pnpm dev
@@ -31,6 +54,13 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Link coming soon []
+[
+Am fixing this error that I am getting after running yarn build
+ Export encountered errors on following paths:
+        /_not-found/page: /_not-found
+        /apply/page: /apply
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+]
