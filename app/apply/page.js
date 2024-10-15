@@ -3,6 +3,7 @@ import { useSearchParams } from 'next/navigation';
 import JobApplicationForm from '../components/JobApplicationForm';
 import { useEffect, useState } from 'react';
 
+
 export default function Apply() {
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
@@ -35,3 +36,5 @@ export default function Apply() {
     
       return <JobApplicationForm job={job} />;
     }
+
+    

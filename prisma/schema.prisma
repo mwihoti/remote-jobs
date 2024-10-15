@@ -18,10 +18,16 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  jobs      Job[]    // For admin users who create jobs
+  firstName         String?
+  lastName          String?
+  role              Role     @default(USER)
+  emailVerified     Boolean  @default(false)
+  profilePictureUrl String?
+  workosId          String?  @unique
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  jobs              Job[]
+  applications      Application[]
   
 }
 
@@ -45,6 +51,10 @@ model Application {
   jobId     String
   user      User     @relation(fields: [userId], references: [id])
   userId    String
+  name      String
+  email     String
+  phone     String
+  cvUrl     String
   status    ApplicationStatus @default(PENDING)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

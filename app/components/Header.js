@@ -16,8 +16,11 @@ export default async function Header() {
       workosUser = authResult; // authResult contains session and user info
       // Update or create user in Prisma
       if (workosUser && workosUser.user) {
-        await updateOrCreateUser(workosUser.user);
+        await updateOrCreateUser(workosUser);
       }
+    }
+    else {
+      signInUrl = await getSignInUrl();
     }
   } catch (error) {
     console.error("Error in Header:", error);
@@ -27,7 +30,7 @@ export default async function Header() {
     <div>
       <header>
         <div className="container items-center justify-between mx-auto py-4 flex">
-          <Link href={'/'} className="font-bold text-xl"> Job Board</Link>
+          <button href={'#'} className="font-bold text-xl"> Job Board</button>
           <nav className="flex gap-2 *:px-4 *:py-2 *:rounded-md ">
             {!workosUser && (
               <Link className='bg-blue bg-gray-50' href={signInUrl}>Login</Link>

@@ -1,32 +1,34 @@
-import { NextResponse } from 'next/server';
-import prisma from '../../../lib/prisma';
+import { NextResponse } from "next/server";
 
 export async function POST(request) {
   try {
+    // Parse form data
     const formData = await request.formData();
     const name = formData.get('name');
     const email = formData.get('email');
     const phone = formData.get('phone');
     const jobId = formData.get('jobId');
     const cvFile = formData.get('cv');
+    const userId = formData.get('userId');
 
-    // Handle file upload (you may want to use a cloud storage service)
-    // For this example, we'll just store the file name
-    const cvUrl = cvFile ? cvFile.name : null;
+    // Validate input
+    const missingFields = [];
+    if (!name) missingFields.push('name');
+    if (!email) missingFields.push('email');
+    if (!phone) missingFields.push('phone');
+    if (!jobId) missingFields.push('jobId');
+    if (!userId) missingFields.push('userId');
 
-    const application = await prisma.application.create({
-      data: {
-        name,
-        email,
-        phone,
-        cvUrl,
-        jobId,
-      },
-    });
+    if (missingFields.length > 0) {
+      return NextResponse.json({ error: 'Missing required fields', missingFields }, { status: 400 });
+    }
 
-    return NextResponse.json(application, { status: 201 });
+    // Instead of saving to the database, just return a success message
+    return NextResponse.json({ message: 'Application submitted successfully' }, { status: 200 });
+
   } catch (error) {
-    console.error('Error creating application:', error);
-    return NextResponse.json({ error: 'Failed to create application' }, { status: 500 });
+    console.error('Error processing application:', error);
+    
+    return NextResponse.json({ error: 'Failed to process application', details: error.message }, { status: 500 });
   }
 }

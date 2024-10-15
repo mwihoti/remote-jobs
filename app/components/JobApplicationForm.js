@@ -1,16 +1,22 @@
 'use client';
 import React, { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
 import { Button, Input, Form, message, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useSearchParams } from 'next/navigation';
 import { saveApplication } from '../../lib/applicationUtils';
 
+
 const JobApplicationForm = () => {
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
+    const router = useRouter();
     const [job, setJob] = useState(null);
+    const [jobId, setJobId] = useState(null); // State for jobId
     const [form] = Form.useForm();
+    const [userId, setUserId] = useState(null); 
     const [fileList, setFileList] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (id) {
@@ -24,6 +30,7 @@ const JobApplicationForm = () => {
                 .then(data => {
                     console.log('Fetched job details for application:', data);
                     setJob(data);
+                    setJobId(data.id)
                 })
                 .catch(err => {
                     console.error('Error fetching job details:', err);
@@ -33,30 +40,50 @@ const JobApplicationForm = () => {
     }, [id]);
 
     const onFinish = async (values) => {
-        const formData = new FormData();
-        formData.append('name', values.name);
-        formData.append('email', values.email);
-        formData.append('phone', values.phone);
-        formData.append('jobId', job.id);
-        formData.append('cv', fileList[0]?.originFileObj);
-
+        setLoading(true);
         try {
+            const formData = new FormData();
+            formData.append('name', values.name);
+            formData.append('email', values.email);
+            formData.append('phone', values.phone);
+            formData.append('jobId', jobId);
+            formData.append('userId', userId);
+
+            if (fileList.length > 0) {
+                formData.append('cv', fileList[0].originFileObj);
+            }
+
             const response = await fetch('/api/applications', {
                 method: 'POST',
                 body: formData,
             });
+
+            const responseText = await response.text();
+            console.log('Raw server response:', responseText);
+
+            let data;
+            try {
+                data = JSON.parse(responseText);
+            } catch (parseError) {
+                console.error('Error parsing JSON:', parseError);
+                throw new Error('Invalid JSON response from server');
+            }
+
             if (response.ok) {
-                const applicationData = await response.json();
-                await saveApplication(applicationData);
+               
                 message.success('Application submitted successfully!');
                 form.resetFields();
                 setFileList([]);
+                router.push('/');
             } else {
-                message.error('Failed to submit application. Please try again.');
+                console.error('Server responded with an error:', data);
+                message.error(`Failed to submit application: ${data.error || 'Unknown error'}`);
             }
         } catch (error) {
             console.error('Error submitting application:', error);
-            message.error('An error occurred. Please try again later.');
+            message.error(`An error occurred: ${error.message}`);
+        } finally {
+            setLoading(false);
         }
     };
 
