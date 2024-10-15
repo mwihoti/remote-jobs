@@ -11,6 +11,26 @@ export default function Apply() {
     const [job, setJob] = useState(null);
     const [error, setError] = useState(null);
 
+
+    useEffect(() => {
+      if (id) {
+          fetch(`/api/jobs/${id}`)
+              .then(response => response.json())
+              .then(data => {
+                  if (data.error) {
+                      setError(data.error);
+                  } else {
+                      setJob(data);
+                      console.log('Fetched job details:', data);
+                  }
+              })
+              .catch((error) => {
+                  setError('Failed to fetch job details');
+                  console.error('Error fetching job:', error);
+              });
+      }
+  }, [id]);
+  
     useEffect(() => {
         // Extract the id from the URL
         const urlParams = new URLSearchParams(window.location.search);
@@ -18,24 +38,7 @@ export default function Apply() {
         setId(jobId);
     }, []);
 
-    useEffect(() => {
-        if (id) {
-            fetch(`/api/jobs/${id}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        setError(data.error);
-                    } else {
-                        setJob(data);
-                        console.log('Fetched job details:', data);
-                    }
-                })
-                .catch((error) => {
-                    setError('Failed to fetch job details');
-                    console.error('Error fetching job:', error);
-                });
-        }
-    }, [id]);
+   
 
     if (!id) return <div>No job ID provided</div>;
     if (error) return <div>{error}</div>;
