@@ -1,6 +1,6 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
-import { JobApplicationForm } from '../components/JobApplicationForm';
+import  JobApplicationForm  from '../components/JobApplicationForm';
 import { useEffect, useState } from 'react';
 
 
