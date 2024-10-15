@@ -19,7 +19,9 @@ export const config = { matcher: [
     '/show/:id*',
     '/jobs/:id*',
     '/apply',
-    '/form'
+    '/form',
+    '/api/signout',
+    '/not-found'
     
 
     ]

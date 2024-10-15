@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from "react";
-import { useRouter } from 'next/navigation';
+
 import { Button, Input, Form, message, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useSearchParams } from 'next/navigation';
@@ -10,7 +10,6 @@ import { saveApplication } from '../../lib/applicationUtils';
 const JobApplicationForm = () => {
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
-    const router = useRouter();
     const [job, setJob] = useState(null);
     const [jobId, setJobId] = useState(null); // State for jobId
     const [form] = Form.useForm();
@@ -74,7 +73,7 @@ const JobApplicationForm = () => {
                 message.success('Application submitted successfully!');
                 form.resetFields();
                 setFileList([]);
-                router.push('/');
+        
             } else {
                 console.error('Server responded with an error:', data);
                 message.error(`Failed to submit application: ${data.error || 'Unknown error'}`);
