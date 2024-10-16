@@ -159,5 +159,68 @@
     "internalAdvertising": "Current employees are encouraged to apply internally.",
     "socialMedia": "@AppCreators"
   },
+  {
+    "id": "1697245200223-9",
+    "title": "Data Scientist",
+    "description": "Analyze large datasets to provide actionable insights for business decisions.",
+    "salary": "$100,000 - $130,000",
+    "company": "DataMinds",
+    "location": "New York, USA",
+    "qualifications": "3+ years of experience in data analysis, proficiency in Python, R, and SQL.",
+    "benefits": "Health benefits, stock options, flexible hours.",
+    "contactInfo": "careers@dataminds.com",
+    "companyBackground": "DataMinds helps companies leverage data to improve their business strategies.",
+    "applicationProcedure": "Submit your resume and a summary of data analysis projects you've worked on.",
+    "responsibilities": "Analyze and interpret data, develop predictive models, communicate insights to stakeholders.",
+    "roleSummary": "As a Data Scientist, you'll use data to solve complex problems and drive business outcomes.",
+    "businessIntro": "DataMinds empowers companies to make data-driven decisions.",
+    "preferredQualifications": "Experience with machine learning algorithms, knowledge of data visualization tools.",
+    "applicationDirections": "Send your resume and portfolio of data projects.",
+    "internalAdvertising": "Open to internal candidates.",
+    "socialMedia": "@DataMindsAI"
+},
+ {
+    "id": "1697245200223-11",
+    "title": "UI/UX Designer",
+    "description": "Design user-friendly interfaces for web and mobile applications.",
+    "salary": "$75,000 - $100,000",
+    "company": "DesignHub",
+    "location": "Chicago, USA",
+    "qualifications": "2+ years of experience in UI/UX design, proficiency in Figma, Adobe XD, and Sketch.",
+    "benefits": "Flexible working hours, remote work options, health and wellness benefits.",
+    "contactInfo": "careers@designhub.com",
+    "companyBackground": "DesignHub is a creative agency focused on user-centered design for digital products.",
+    "applicationProcedure": "Submit your resume and portfolio of design projects.",
+    "responsibilities": "Design wireframes, mockups, and prototypes, collaborate with developers to ensure design feasibility.",
+    "roleSummary": "As a UI/UX Designer, you will create intuitive and beautiful user experiences.",
+    "businessIntro": "DesignHub creates elegant and functional designs that delight users.",
+    "preferredQualifications": "Experience in designing for both web and mobile platforms.",
+    "applicationDirections": "Send your resume and portfolio.",
+    "internalAdvertising": "Internal applications are welcomed.",
+    "socialMedia": "@DesignHubCo"
+},
+{
+    "id": "1697245200223-10",
+    "title": "DevOps Engineer",
+    "description": "Manage cloud infrastructure and deployment pipelines for high-availability applications.",
+    "salary": "$110,000 - $140,000",
+    "company": "CloudWorks",
+    "location": "Remote",
+    "qualifications": "4+ years of experience in DevOps, proficiency in AWS, Docker, and Kubernetes.",
+    "benefits": "Remote work, unlimited PTO, health and dental insurance.",
+    "contactInfo": "jobs@cloudworks.com",
+    "companyBackground": "CloudWorks specializes in building and managing cloud-based solutions for enterprise clients.",
+    "applicationProcedure": "Submit your resume and details of past DevOps projects.",
+    "responsibilities": "Monitor cloud infrastructure, optimize CI/CD pipelines, ensure system security and performance.",
+    "roleSummary": "As a DevOps Engineer, you will build and maintain scalable cloud infrastructures.",
+    "businessIntro": "CloudWorks is at the forefront of cloud technology, offering reliable infrastructure solutions.",
+    "preferredQualifications": "Experience with Terraform and Jenkins.",
+    "applicationDirections": "Send your resume and details of your cloud infrastructure experience.",
+    "internalAdvertising": "Current employees are encouraged to apply internally.",
+    "socialMedia": "@CloudWorksTech"
+}
+
+
+
   
 ]
