@@ -72,12 +72,12 @@ export default async function Header() {
         >
           Jobs
         </Link>
-        <Link
+       {/* <Link
           href="/form"
           className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-all"
         >
           Post Jobs
-        </Link>
+        </Link> */}
       </nav>
     </div>
   </header>
