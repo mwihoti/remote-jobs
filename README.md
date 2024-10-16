@@ -71,18 +71,6 @@ To learn more about Next.js, take a look at the following resources:
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
 ## Deploy on Vercel
-Production Build Errors: Currently encountering errors during the production build process.
-Link coming soon []
-[
-Am fixing this error that I am getting after running yarn build
- Export encountered errors on following paths:
-        /_not-found/page: /_not-found
-        /apply/page: /apply
-error Command failed with exit code 1.
-info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
 
-]
+https://remote-jobs-peach.vercel.app/
 
-[
-        remote-jobs-tnp3-3x8mbkyuf-mwihotis-projects.vercel.app
-]
