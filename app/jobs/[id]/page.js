@@ -1,26 +1,55 @@
 'use client'
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-export default function JobDetailsPage() {
+
+
+
+export default  function JobDetailsPage() {
+ 
+  const router = useRouter(); 
   const params = useParams();
   const id = params.id;
   const [job, setJob] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (id) {
-      fetch(`/api/jobs/${id}`)
-        .then(res => res.json())
-        .then(data => {
-            console.log('Fetched job details:', data);
-            setJob(data)})
-        .catch(err => console.error('Error fetching job details:', err));
-    }
-  }, [id]);
+    fetch('/api/auth/session')
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error('Not authenticated');
+      })
+      .then((sessionData) => {
+        if (sessionData.user?.id) {
+          setIsAuthenticated(true);
+        }
+      })
+      .catch(() => {
+        setIsAuthenticated(false);
+      })
+      .finally(() => {
+        setLoading(false); // Set loading to false after checking authentication
+      });
+  }, []);
 
+
+useEffect(() => {
+  if (id && isAuthenticated) {
+    fetch(`/api/jobs/${id}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log('Fetched job details:', data);
+        setJob(data);
+      })
+      .catch(err => console.error('Error fetching job details:', err));
+  }
+}, [id, isAuthenticated]);
   if (!job) {
-    return <div>Loading...</div>;
+    return <div>please wait <br/> Loading...</div>;
   }
 
   return (

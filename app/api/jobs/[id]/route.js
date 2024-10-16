@@ -4,7 +4,7 @@ import { readJobsFile } from '../../../../lib/jobsUtils';
 export async function GET(request, { params }) {
   try {
     const { id } = params;  // Extract the job id from params
-
+   
     if (!id) {
       console.error('No id provided:', id);
       return NextResponse.json({ error: 'No id provided' }, { status: 400 });

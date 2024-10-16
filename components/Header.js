@@ -14,7 +14,7 @@ export default async function Header() {
 
   try {
     // Server-side authentication using WorkOS Authkit
-    if (typeof window === 'undefined') {
+
       // Only run withAuth server-side
       const authResult = await withAuth();
       const authKitUser = authResult.user;
@@ -28,7 +28,7 @@ export default async function Header() {
       if (workosUser && workosUser.user) {
         await updateOrCreateUser(workosUser);
       }
-    }
+    
     
     }
   } catch (error) {
