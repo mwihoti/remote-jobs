@@ -43,14 +43,7 @@ export default async function Header() {
         Job Corner
       </Link>
       <nav className="flex items-center space-x-4">
-        {!workosUser && (
-          <Link
-            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-all"
-            href={signInUrl }
-          >
-            Login
-          </Link>
-        )}
+        
         {workosUser && workosUser.user && (
           <div className="flex items-center space-x-3">
             <p className="text-gray-700">
