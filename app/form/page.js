@@ -1,4 +1,4 @@
-import JobForm from "../components/JobForm";
+import JobForm from "../../components/JobForm";
 export const dynamic = 'force-dynamic';
 
 export default function JobFormPage() {

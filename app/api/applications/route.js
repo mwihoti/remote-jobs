@@ -8,7 +8,7 @@ export async function POST(request) {
     const email = formData.get('email');
     const phone = formData.get('phone');
     const jobId = formData.get('jobId');
-    const cvFile = formData.get('cv');
+    // const cvFile = formData.get('cv');
     const userId = formData.get('userId');
 
     // Validate input

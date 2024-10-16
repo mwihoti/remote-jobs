@@ -6,20 +6,14 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
 export async function GET(request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
+    
+    const jobs = await readJobsFile(request);
 
-    if (!id) {
-      return NextResponse.json({ error: 'No id provided' }, { status: 400 });
-    }
 
-    const response = await fetch(`/api/jobs?id=${id}`);
-    if (!response.ok) {
-      return NextResponse.json({ error: 'Job not found' }, { status: 404 });
-    }
-    const job = await response.json();
+    
+   
 
-    return NextResponse.json(job);
+    return NextResponse.json(jobs);
   } catch (error) {
     console.error('Error in GET function:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

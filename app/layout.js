@@ -1,6 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import Header from "./components/Header";
+import Header from "../components/Header";
 import { AuthKitProvider } from "@workos-inc/authkit-nextjs";
 
 const geistSans = localFont({

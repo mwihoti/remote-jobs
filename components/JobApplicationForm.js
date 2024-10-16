@@ -1,19 +1,14 @@
 'use client';
 import React, { useEffect, useState } from "react";
-
 import { Button, Input, Form, message, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import { useSearchParams } from 'next/navigation';
-import { saveApplication } from '../../lib/applicationUtils';
+import { useParams } from 'next/navigation';  // Use useParams to get the job ID
+import { saveApplication } from '../lib/applicationUtils';
 
-
-const JobApplicationForm = () => {
-    const searchParams = useSearchParams();
-    const id = searchParams.get('id');
+const JobApplicationForm = ({ user }) => {
+    const { id } = useParams();  // Get the job ID from the dynamic route
     const [job, setJob] = useState(null);
-    const [jobId, setJobId] = useState(null); // State for jobId
     const [form] = Form.useForm();
-    const [userId, setUserId] = useState(null); 
     const [fileList, setFileList] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -29,7 +24,6 @@ const JobApplicationForm = () => {
                 .then(data => {
                     console.log('Fetched job details for application:', data);
                     setJob(data);
-                    setJobId(data.id)
                 })
                 .catch(err => {
                     console.error('Error fetching job details:', err);
@@ -45,8 +39,8 @@ const JobApplicationForm = () => {
             formData.append('name', values.name);
             formData.append('email', values.email);
             formData.append('phone', values.phone);
-            formData.append('jobId', jobId);
-            formData.append('userId', userId);
+            formData.append('jobId', id);  // Use the ID from the dynamic route
+            formData.append('userId', user.id);  // Use the passed user object for user ID
 
             if (fileList.length > 0) {
                 formData.append('cv', fileList[0].originFileObj);
@@ -69,11 +63,9 @@ const JobApplicationForm = () => {
             }
 
             if (response.ok) {
-               
                 message.success('Application submitted successfully!');
                 form.resetFields();
                 setFileList([]);
-        
             } else {
                 console.error('Server responded with an error:', data);
                 message.error(`Failed to submit application: ${data.error || 'Unknown error'}`);
@@ -103,7 +95,7 @@ const JobApplicationForm = () => {
     }
 
     return (
-        <div className="flex  md:flex-row p-10 items-center justify-center gap-8">
+        <div className="flex md:flex-row p-10 items-center justify-center gap-8">
             <div className="w-full md:w-1/2">
                 <h2 className="text-2xl font-bold mb-4">Job Details</h2>
                 <div className="bg-white shadow-md rounded-lg p-6">
@@ -113,9 +105,9 @@ const JobApplicationForm = () => {
                     <p className="mb-2"><strong>Salary:</strong> {job.salary || 'Not specified'}</p>
                     <p className="mb-4"><strong>Description:</strong> {job.description}</p>
                     <p className="mb-2"><strong>Responsibilities:</strong> {job.responsibilities}</p>
-      <p className="mb-2"><strong>Role Summary:</strong> {job.roleSummary}</p>
-      <p className="mb-2"><strong>Business Intro:</strong> {job.businessIntro}</p>
-      <p className="mb-2"><strong>Preferred Qualifications:</strong> {job.preferredQualifications}</p>
+                    <p className="mb-2"><strong>Role Summary:</strong> {job.roleSummary}</p>
+                    <p className="mb-2"><strong>Business Intro:</strong> {job.businessIntro}</p>
+                    <p className="mb-2"><strong>Preferred Qualifications:</strong> {job.preferredQualifications}</p>
                 </div>
             </div>
             <div className="w-full md:w-1/2">
@@ -140,7 +132,7 @@ const JobApplicationForm = () => {
                         </Upload>
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit" loading={loading}>
                             Submit Application
                         </Button>
                     </Form.Item>

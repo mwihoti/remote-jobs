@@ -1,7 +1,7 @@
 
 import { getSignInUrl, withAuth, signOut } from '@workos-inc/authkit-nextjs';
 import Link from "next/link";
-import prisma from '../../lib/prisma';
+import prisma from '../lib/prisma';
 
 // Mark this as a server-side component
 export default async function Header() {
@@ -14,8 +14,10 @@ export default async function Header() {
 
   try {
     // Server-side authentication using WorkOS Authkit
-    const authResult = await withAuth();
-    const authKitUser = authResult.user;
+    if (typeof window === 'undefined') {
+      // Only run withAuth server-side
+      const authResult = await withAuth();
+      const authKitUser = authResult.user;
     signInUrl = await getSignInUrl();
 
     if (authKitUser && authKitUser.id) {
@@ -26,6 +28,8 @@ export default async function Header() {
       if (workosUser && workosUser.user) {
         await updateOrCreateUser(workosUser);
       }
+    }
+    
     }
   } catch (error) {
     console.error("Error in Header:", error);
@@ -38,7 +42,7 @@ export default async function Header() {
           <Link href="/" className="font-bold text-xl">Job Corner</Link>
           <nav className="flex gap-2 px-4 py-2 rounded-md">
           {!workosUser && (
-          <Link className='=bg-blue bg-gray-50' href={signInUrl}>Login</Link>
+          <Link className='=bg-blue bg-gray-50' href={signInUrl || '/'}>Login</Link>
         )}
         { workosUser && workosUser.user && (
           <div>

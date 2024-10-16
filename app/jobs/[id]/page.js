@@ -46,7 +46,7 @@ export default function JobDetailsPage() {
       <p className="mb-2"><strong>Social Media:</strong> {job.socialMedia}</p>
 
 
-      <Link href={`/apply?id=${job.id}`}  className="bg-indigo-600 text-white py-2 px-4 rounded-lg">Apply for this job</Link>
+      <Link href={`/apply/${job.id}`}  className="bg-indigo-600 text-white py-2 px-4 rounded-lg">Apply for this job</Link>
     </div>
   );
 }

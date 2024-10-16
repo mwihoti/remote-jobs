@@ -1,4 +1,4 @@
-import JobList from '../components/JobList'
+import JobList from '../../components/JobList'
 export const dynamic = 'force-dynamic';
 
 export default function page() {
