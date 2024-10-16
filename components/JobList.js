@@ -27,16 +27,11 @@ export default function JobList() {
     fetchJobs();
   }, []);
 
-  if (loading) {
-    return <div>Loading jobs...</div>;
-  }
-
+ 
   if (error) {
     return <div>Error: {error}</div>;
   }
-  if (jobs.length === 0) {
-    return <div>No jobs available</div>;
-  }
+
 
 
   return (

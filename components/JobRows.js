@@ -32,9 +32,7 @@ export default function JobRow({ jobDoc }) {
 
   return (<div className="bg-white p-16 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 mx-auto mb-6 border border-gray-200">
     {/* Favorite Icon */}
-    <div className="absolute top-4 right-4 cursor-pointer">
-      <FontAwesomeIcon className="text-gray-300 hover:text-red-400 transition duration-200" icon={faHeart} />
-    </div>
+  
   
     {/* Job Information */}
     <div className="flex items-start justify-between mb-4">
@@ -72,6 +70,9 @@ export default function JobRow({ jobDoc }) {
           </div>
         </div>
       </div>
+      <div className="absolute  right-4 cursor-pointer">
+      <FontAwesomeIcon className="text-gray-300 hover:text-red-400 transition duration-200" icon={faHeart} />
+    </div>
     </div>
   
     {/* Admin Actions */}

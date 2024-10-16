@@ -36,34 +36,52 @@ export default async function Header() {
   }
 
   return (
-    <div>
-      <header>
-        <div className="container items-center justify-between mx-auto py-4 flex">
-          <Link href="/" className="font-bold text-xl">Job Corner</Link>
-          <nav className="flex gap-2 px-4 py-2 rounded-md">
-          {!workosUser && (
-          <Link className='=bg-blue bg-gray-50' href={signInUrl || '/'}>Login</Link>
+<div>
+  <header className="bg-white shadow-md">
+    <div className="container mx-auto flex items-center justify-between py-4 px-6">
+      <Link href="/" className="font-bold text-2xl text-blue-600 hover:text-blue-800">
+        Job Corner
+      </Link>
+      <nav className="flex items-center space-x-4">
+        {!workosUser && (
+          <Link
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-all"
+            href={signInUrl || '/'}
+          >
+            Login
+          </Link>
         )}
-        { workosUser && workosUser.user && (
-          <div>
-          <p>Welcome back{workosUser.user.firstName && `, ${workosUser.user.firstName}`}</p>
-          
-          <form action={async () => {
-                  'use server';
-                  await signOut();
-                }}>
-                  <button className='bg-blue bg-gray-50' type='submit'>LogOut</button>
-                </form>
-               
-                </div>
-        
-            )}
-            <Link href="/jobs" className="bg-gray-200 ">Jobs</Link>
-            <Link href="/form" className="bg-blue-600">Post Jobs</Link>
-          </nav>
-        </div>
-      </header>
+        {workosUser && workosUser.user && (
+          <div className="flex items-center space-x-3">
+            <p className="text-gray-700">
+              Welcome back{workosUser.user.firstName && `, ${workosUser.user.firstName}`}
+            </p>
+            <form action={async () => { 'use server'; await signOut(); }}>
+              <button
+                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-all"
+                type="submit"
+              >
+                Logout
+              </button>
+            </form>
+          </div>
+        )}
+        <Link
+          href="/jobs"
+          className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition-all"
+        >
+          Jobs
+        </Link>
+        <Link
+          href="/form"
+          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-all"
+        >
+          Post Jobs
+        </Link>
+      </nav>
     </div>
+  </header>
+</div>
   );
 }
 
